@@ -2,6 +2,4 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return '测试';
-});
+Route::get('/', 'PagesController@root')->name('root');
