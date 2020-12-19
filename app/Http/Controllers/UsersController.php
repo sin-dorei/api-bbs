@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Http\Requests\UserRequest;
 use Exception;
 use Storage;
+use Image;
 
 class UsersController extends Controller
 {
@@ -21,6 +22,7 @@ class UsersController extends Controller
 
     public function update(UserRequest $request, User $user)
     {
+        $data = $request->except('_token');
         if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
             // dd($request->avatar->getSize());
             if(!in_array($request->avatar->extension(), ['jpg', 'png', 'gif'])) {
@@ -28,9 +30,15 @@ class UsersController extends Controller
             }
 
             $path = $request->file('avatar')->store('images/avatars', 'upload');
+
+            // 裁剪图片
+            $image = Image::make('uploads/' . $path);
+            $image->fit(416);
+            $image->save();
+
+            $data['avatar'] = Storage::disk('upload')->url($path);
         }
-        $data = $request->except('_token');
-        $data['avatar'] = Storage::disk('upload')->url($path);
+
         // dd($data);
         $user->update($data);
 
