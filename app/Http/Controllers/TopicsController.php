@@ -13,9 +13,9 @@ class TopicsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Topic $topic, $category_id = null)
+    public function index(Request $request, Topic $topic, $category_id = null)
     {
-        $topics = $topic->feed($category_id)->paginate(20);
+        $topics = $topic->feed($category_id, $request->order)->paginate(20);
 
         $category = null;
         if ($category_id) {

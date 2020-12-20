@@ -20,11 +20,20 @@ class Topic extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function feed($category_id)
+    public function scopeFeed($query, $category_id, $order)
     {
         if (!$category_id) {
-            return $this->orderBy('updated_at', 'desc')->with('user', 'category');
+            return $query->withOrder($order)->with('user', 'category');
         }
-        return $this->where('category_id', $category_id)->orderBy('updated_at', 'desc')->with('user', 'category');
+        return $query->where('category_id', $category_id)->withOrder($order)->with('user', 'category');
+    }
+
+    public function scopeWithOrder($query, $order)
+    {
+        if ($order === 'recent') {
+            $query->orderBy('created_at', 'desc');
+        } else {
+            $query->orderBy('updated_at', 'desc');
+        }
     }
 }

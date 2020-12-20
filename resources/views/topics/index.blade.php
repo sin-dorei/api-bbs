@@ -16,8 +16,8 @@
     <div class="card">
       <div class="card-header bg-transparent">
         <ul class="nav nav-pills">
-          <li class="nav-item"><a class="nav-link active" href="#">最后回复</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">最新发布</a></li>
+          <li class="nav-item"><a class="nav-link @if(request()->order !== 'recent') active @endif" href="{{ request()->url() }}?order=default">最后回复</a></li>
+          <li class="nav-item"><a class="nav-link @if(request()->order === 'recent') active @endif" href="{{ request()->url() }}?order=recent">最新发布</a></li>
         </ul>
       </div>
       <div class="card-body">
@@ -25,7 +25,7 @@
         @include('topics._topic_list', ['topics' => $topics])
         {{-- 分页 --}}
         <div class="mt-5">
-          {{ $topics->appends(Request::except('page'))->links() }}
+          {{ $topics->appends(request()->except('page'))->links() }}
         </div>
       </div>
     </div>
