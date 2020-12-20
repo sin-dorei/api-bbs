@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Topic extends Model
 {
     protected $fillable = [
-        'title', 'body', 'category_id'
+        'title', 'body', 'category_id', 'excerpt'
     ];
 
     public function user()

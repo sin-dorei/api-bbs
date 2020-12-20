@@ -3,11 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Topic;
+use App\Http\Requests\TopicRequest;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Auth;
 
 class TopicsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -37,9 +44,13 @@ class TopicsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TopicRequest $request, Topic $topic)
     {
-        //
+        $topic->fill($request->all());
+        $topic->user_id = Auth::id();
+        $topic->save();
+
+        return redirect()->route('topics.show', $topic)->with('success', '帖子创建成功！');
     }
 
     /**
