@@ -13,17 +13,11 @@ class TopicsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, Topic $topic, $category_id = null)
+    public function index(Request $request)
     {
-        $topics = $topic->feed($category_id, $request->order)->paginate(20);
+        $topics = Topic::feed($request->order)->paginate(20);
 
-        $category = null;
-        if ($category_id) {
-            $category = Category::where('id', $category_id)->first();
-            // dd($category->name);
-        }
-
-        return view('topics.index', compact('topics', 'category'));
+        return view('topics.index', compact('topics'));
     }
 
     /**
@@ -31,9 +25,10 @@ class TopicsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Topic $topic)
     {
-        //
+        $categories = Category::all();
+        return view('topics.create_and_edit', compact('topic', 'categories'));
     }
 
     /**

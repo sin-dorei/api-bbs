@@ -11,11 +11,11 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <!-- Left Side Of Navbar -->
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item @if(request()->category_id === null) active @endif"><a class="nav-link" href="{{ route('topics.index') }}">话题</a></li>
-        <li class="nav-item @if(request()->category_id === '1') active @endif"><a class="nav-link" href="{{ route('topics.index', ['category_id' => 1]) }}">分享</a></li>
-        <li class="nav-item @if(request()->category_id === '2') active @endif"><a class="nav-link" href="{{ route('topics.index', ['category_id' => 2]) }}">教程</a></li>
-        <li class="nav-item @if(request()->category_id === '3') active @endif"><a class="nav-link" href="{{ route('topics.index', ['category_id' => 3]) }}">问答</a></li>
-        <li class="nav-item @if(request()->category_id === '4') active @endif"><a class="nav-link" href="{{ route('topics.index', ['category_id' => 4]) }}">公告</a></li>
+        <li class="nav-item @if(request()->url() === route('topics.index')) active @endif"><a class="nav-link" href="{{ route('topics.index') }}">话题</a></li>
+        <li class="nav-item @if(request()->url() === route('categories.show', 1)) active @endif"><a class="nav-link" href="{{ route('categories.show', 1) }}">分享</a></li>
+        <li class="nav-item @if(request()->url() === route('categories.show', 2)) active @endif"><a class="nav-link" href="{{ route('categories.show', 2) }}">教程</a></li>
+        <li class="nav-item @if(request()->url() === route('categories.show', 3)) active @endif"><a class="nav-link" href="{{ route('categories.show', 3) }}">问答</a></li>
+        <li class="nav-item @if(request()->url() === route('categories.show', 4)) active @endif"><a class="nav-link" href="{{ route('categories.show', 4) }}">公告</a></li>
       </ul>
 
       <!-- Right Side Of Navbar -->
@@ -25,6 +25,11 @@
           <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">登录</a></li>
           <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">注册</a></li>
           @else
+          <li class="nav-item">
+            <a class="nav-link mt-1 mr-3 font-weight-bold" href="{{ route('topics.create') }}">
+              <i class="fa fa-plus"></i>
+            </a>
+          </li>
           <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <img src="{{ Auth::user()->avatar }}" class="img-responsive img-circle" width="30px" height="30px">

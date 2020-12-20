@@ -29,5 +29,6 @@ Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
 Route::resource('users', 'UsersController', ['only' => ['show', 'update', 'edit']]);
 
-Route::get('topics/{category_id?}', 'TopicsController@index')->name('topics.index');
-Route::resource('topics', 'TopicsController', ['except' => 'index']);
+// Route::get('topics/{category_id?}', 'TopicsController@index')->name('topics.index');
+Route::resource('topics', 'TopicsController');
+Route::resource('categories', 'CategoriesController', ['only' => 'show']);
