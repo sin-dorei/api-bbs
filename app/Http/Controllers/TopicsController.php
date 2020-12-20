@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Topic;
 use Illuminate\Http\Request;
 
-class TopicController extends Controller
+class TopicsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,9 @@ class TopicController extends Controller
      */
     public function index()
     {
-        //
+        $topics = Topic::orderBy('updated_at', 'desc')->with(['user', 'category'])->paginate(20);
+
+        return view('topics.index', compact('topics'));
     }
 
     /**
