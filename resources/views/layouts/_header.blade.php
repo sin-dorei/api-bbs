@@ -11,7 +11,11 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <!-- Left Side Of Navbar -->
       <ul class="navbar-nav mr-auto">
-
+        <li class="nav-item @if(request()->category_id === null) active @endif"><a class="nav-link" href="{{ route('topics.index') }}">话题</a></li>
+        <li class="nav-item @if(request()->category_id === '1') active @endif"><a class="nav-link" href="{{ route('topics.index', ['category_id' => 1]) }}">分享</a></li>
+        <li class="nav-item @if(request()->category_id === '2') active @endif"><a class="nav-link" href="{{ route('topics.index', ['category_id' => 2]) }}">教程</a></li>
+        <li class="nav-item @if(request()->category_id === '3') active @endif"><a class="nav-link" href="{{ route('topics.index', ['category_id' => 3]) }}">问答</a></li>
+        <li class="nav-item @if(request()->category_id === '4') active @endif"><a class="nav-link" href="{{ route('topics.index', ['category_id' => 4]) }}">公告</a></li>
       </ul>
 
       <!-- Right Side Of Navbar -->

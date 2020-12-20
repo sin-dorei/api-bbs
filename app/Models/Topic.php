@@ -19,4 +19,12 @@ class Topic extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function feed($category_id)
+    {
+        if (!$category_id) {
+            return $this->orderBy('updated_at', 'desc')->with('user', 'category');
+        }
+        return $this->where('category_id', $category_id)->orderBy('updated_at', 'desc')->with('user', 'category');
+    }
 }

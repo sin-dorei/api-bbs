@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Topic;
 use Illuminate\Http\Request;
+use App\Models\Category;
 
 class TopicsController extends Controller
 {
@@ -12,11 +13,17 @@ class TopicsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Topic $topic, $category_id = null)
     {
-        $topics = Topic::orderBy('updated_at', 'desc')->with(['user', 'category'])->paginate(20);
+        $topics = $topic->feed($category_id)->paginate(20);
 
-        return view('topics.index', compact('topics'));
+        $category = null;
+        if ($category_id) {
+            $category = Category::where('id', $category_id)->first();
+            // dd($category->name);
+        }
+
+        return view('topics.index', compact('topics', 'category'));
     }
 
     /**
