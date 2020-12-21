@@ -44,8 +44,11 @@
             </div>
 
             <div class="form-group">
-              <textarea name="body" class="form-control" id="editor" rows="6" placeholder="请填入至少三个字符的内容。"
-                required>{{ old('body', $topic->body) }}</textarea>
+              {{-- <textarea name="body" class="form-control" id="editor" rows="6" placeholder="请填入至少三个字符的内容。" --}}
+              {{-- required>{{ old('body', $topic->body) }}</textarea> --}}
+              <div id="editor">
+                <p>Here goes the initial content of the editor.</p>
+              </div>
             </div>
 
             <div class="well well-sm">
@@ -58,4 +61,20 @@
   </div>
 </div>
 
+@stop
+
+@section('scripts')
+
+<script src="{{ asset('js/ckeditor.js') }}"></script>
+{{-- <script src="https://cdn.ckeditor.com/ckeditor5/24.0.0/classic/ckeditor.js"></script> --}}
+<script>
+  ClassicEditor
+    .create( document.querySelector( '#editor' ) )
+    .then( editor => {
+        console.log( editor );
+    } )
+    .catch( error => {
+        console.error( error );
+    } );
+</script>
 @stop
