@@ -1,5 +1,6 @@
 {
     "/js/app.js": "/js/app.js?id=842508f3f153d64baf44",
     "/css/app.css": "/css/app.css?id=89a82bbd4be3e67210ea",
-    "/js/ckeditor.js": "/js/ckeditor.js?id=1edd965ecd01ac6172c2"
+    "/js/tinymce/tinymce.js": "/js/tinymce/tinymce.js?id=9fd5af6720cd128b3aec",
+    "/js/tinymce/langs/zh_CN.js": "/js/tinymce/langs/zh_CN.js?id=e304ad027acebf37a178"
 }

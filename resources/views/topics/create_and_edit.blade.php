@@ -31,11 +31,11 @@
 
             <div class="form-group">
               <input class="form-control" type="text" name="title" value="{{ old('title', $topic->title) }}"
-                placeholder="请填写标题" required />
+                placeholder="请填写标题" />
             </div>
 
             <div class="form-group">
-              <select class="form-control" name="category_id" required>
+              <select class="form-control" name="category_id">
                 <option value="" hidden disabled selected>请选择分类</option>
                 @foreach ($categories as $value)
                 <option value="{{ $value->id }}">{{ $value->name }}</option>
@@ -44,15 +44,12 @@
             </div>
 
             <div class="form-group">
-              {{-- <textarea name="body" class="form-control" id="editor" rows="6" placeholder="请填入至少三个字符的内容。" --}}
-              {{-- required>{{ old('body', $topic->body) }}</textarea> --}}
-              <div id="editor">
-                <p>Here goes the initial content of the editor.</p>
-              </div>
+              <textarea name="body" id="editor" placeholder="请填入至少三个字符的内容">{{ old('body', $topic->body) }}</textarea>
+
             </div>
 
             <div class="well well-sm">
-              <button type="submit" class="btn btn-primary"><i class="far fa-save mr-2" aria-hidden="true"></i>
+              <button type="submit" class="btn btn-primary"><i class="far fa-save mr-2"></i>
                 保存</button>
             </div>
           </form>
@@ -65,16 +62,12 @@
 
 @section('scripts')
 
-<script src="{{ asset('js/ckeditor.js') }}"></script>
-{{-- <script src="https://cdn.ckeditor.com/ckeditor5/24.0.0/classic/ckeditor.js"></script> --}}
+<script src="{{ asset('js/tinymce/tinymce.js') }}"></script>
 <script>
-  ClassicEditor
-    .create( document.querySelector( '#editor' ) )
-    .then( editor => {
-        console.log( editor );
-    } )
-    .catch( error => {
-        console.error( error );
-    } );
+  tinymce.init({
+    selector: '#editor',
+    language: 'zh_CN'
+  });
 </script>
+
 @stop

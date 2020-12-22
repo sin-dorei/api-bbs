@@ -14,4 +14,9 @@ const mix = require('laravel-mix');
 mix.js('resources/js/app.js', 'public/js')
   .sass('resources/sass/app.scss', 'public/css')
   .version()
-  .js('resources/js/ckeditor.js', 'public/js');
+  .copyDirectory('node_modules/tinymce/tinymce.js', 'public/js/tinymce/tinymce.js')
+  .copyDirectory('node_modules/tinymce-i18n/langs/zh_CN.js', 'public/js/tinymce/langs/zh_CN.js')
+  .copyDirectory('node_modules/tinymce/icons', 'public/js/tinymce/icons')
+  .copyDirectory('node_modules/tinymce/plugins', 'public/js/tinymce/plugins')
+  .copyDirectory('node_modules/tinymce/skins', 'public/js/tinymce/skins')
+  .copyDirectory('node_modules/tinymce/themes', 'public/js/tinymce/themes');

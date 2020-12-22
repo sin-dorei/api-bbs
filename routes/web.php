@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TopicsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'PagesController@root')->name('root')->middleware('verified');
@@ -32,3 +33,5 @@ Route::resource('users', 'UsersController', ['only' => ['show', 'update', 'edit'
 // Route::get('topics/{category_id?}', 'TopicsController@index')->name('topics.index');
 Route::resource('topics', 'TopicsController');
 Route::resource('categories', 'CategoriesController', ['only' => 'show']);
+
+Route::post('topics/upload_image', 'TopicsController@uploadImage')->name('topics.upload_image');
