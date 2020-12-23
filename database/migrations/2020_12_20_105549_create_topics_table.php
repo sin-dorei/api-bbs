@@ -24,6 +24,7 @@ class CreateTopicsTable extends Migration
             $table->integer('last_reply_user_id')->unsigned()->nullable();
             $table->integer('order')->default(0);
             $table->text('excerpt')->nullable();
+            $table->string('slug')->nullable();
             $table->timestamps();
         });
     }

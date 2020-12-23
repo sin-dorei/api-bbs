@@ -31,7 +31,8 @@ Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 Route::resource('users', 'UsersController', ['only' => ['show', 'update', 'edit']]);
 
 // Route::get('topics/{category_id?}', 'TopicsController@index')->name('topics.index');
-Route::resource('topics', 'TopicsController');
 Route::resource('categories', 'CategoriesController', ['only' => 'show']);
 
 Route::post('topics/upload_image', 'TopicsController@uploadImage')->name('topics.upload_image');
+Route::get('topics/{topic}/{slug?}', 'TopicsController@show')->name('topics.show');
+Route::resource('topics', 'TopicsController', ['except' => 'show']);

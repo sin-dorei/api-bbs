@@ -36,4 +36,9 @@ class Topic extends Model
             $query->orderBy('updated_at', 'desc');
         }
     }
+
+    public function link()
+    {
+        return route('topics.show', [$this->id, $this->slug]);
+    }
 }

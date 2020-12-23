@@ -53,7 +53,7 @@ class TopicsController extends Controller
         // dd($topic);
         $topic->save();
 
-        return redirect()->route('topics.show', $topic)->with('success', '帖子创建成功！');
+        return redirect()->to($topic->link())->with('success', '帖子创建成功！');
     }
 
     /**
@@ -62,8 +62,13 @@ class TopicsController extends Controller
      * @param  \App\Models\Topic  $topic
      * @return \Illuminate\Http\Response
      */
-    public function show(Topic $topic)
+    public function show(Request $request, Topic $topic)
     {
+        // URL 矫正
+        if ( ! empty($topic->slug) && $topic->slug != $request->slug) {
+            return redirect($topic->link(), 301);
+        }
+
         return view('topics.show', compact('topic'));
     }
 
@@ -92,7 +97,7 @@ class TopicsController extends Controller
         $this->authorize('update', $topic);
         $topic->update($request->all());
 
-        return redirect()->route('topics.show', $topic->id)->with('success', '更新成功！');
+        return redirect()->to($topic->link())->with('success', '更新成功！');
     }
     /**
      * Remove the specified resource from storage.
