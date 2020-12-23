@@ -32,12 +32,12 @@ class UsersController extends Controller
     {
         $this->authorize('update', $user);
 
-        $data = $request->except('_token');
+        $data = $request->all();
         if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
             // dd($request->avatar->getSize());
-            if(!in_array($request->avatar->extension(), ['jpg', 'png', 'gif'])) {
-                throw new Exception('只能上传后缀为jpg|png|jpeg|gif的图片，请重新操作！');
-            }
+            // if(!in_array($request->avatar->extension(), ['jpg', 'png', 'gif'])) {
+            //     throw new Exception('只能上传后缀为jpg|png|jpeg|gif的图片，请重新操作！');
+            // }
 
             $path = $request->file('avatar')->store('images/avatars', 'upload');
 

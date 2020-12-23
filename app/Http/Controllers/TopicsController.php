@@ -7,6 +7,8 @@ use App\Http\Requests\TopicRequest;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use Auth;
+use Image;
+use Storage;
 
 class TopicsController extends Controller
 {
@@ -98,8 +100,39 @@ class TopicsController extends Controller
         //
     }
 
-    public function uploadImage()
+    public function uploadImage(Request $request)
     {
-        return json_encode(['location' => 'a/b/c.jpg']);
+        // 初始化返回数据，默认是失败的
+        $data = [
+            'success'   => false,
+            'msg'       => '上传失败!',
+            'file_path' => ''
+        ];
+
+        if ($request->hasFile('upload_file') && $request->file('upload_file')->isValid()) {
+            if(!in_array($request->upload_file->extension(), ['jpg', 'png', 'gif'])) {
+                $data['msg'] = ('只能上传后缀为jpg|png|jpeg|gif的图片，请重新操作！');
+                return $data;
+            }
+
+            $path = $request->file('upload_file')->store('images/topics/' . Auth::id(), 'upload');
+
+            // 裁剪图片
+            $image = Image::make('uploads/' . $path);
+            $image->resize(1024, null, function ($constraint) {
+                // 设定宽度是 1024，高度等比例缩放
+                $constraint->aspectRatio();
+                // 防止裁图时图片尺寸变大
+                $constraint->upsize();
+            });
+            $image->save();
+
+            if ($path) {
+                $data['file_path'] = Storage::disk('upload')->url($path);
+                $data['msg']       = "上传成功!";
+                $data['success']   = true;
+            }
+        }
+        return $data;
     }
 }
