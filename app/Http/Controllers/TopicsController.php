@@ -97,4 +97,9 @@ class TopicsController extends Controller
     {
         //
     }
+
+    public function uploadImage()
+    {
+        return json_encode(['location' => 'a/b/c.jpg']);
+    }
 }
