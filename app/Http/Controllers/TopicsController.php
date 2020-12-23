@@ -102,9 +102,11 @@ class TopicsController extends Controller
      */
     public function destroy(Topic $topic)
     {
-        //
-    }
+        $this->authorize('destroy', $topic);
+        $topic->delete();
 
+        return redirect()->route('topics.index')->with('success', '成功删除！');
+    }
     public function uploadImage(Request $request)
     {
         // 初始化返回数据，默认是失败的
