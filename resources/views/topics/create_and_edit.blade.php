@@ -44,10 +44,7 @@
             </div>
 
             <div class="form-group">
-              {{-- <textarea name="body" id="editor" placeholder="请填入至少三个字符的内容">{{ old('body', $topic->body) }}</textarea>
-              --}}
-              <textarea id="editor">
-              </textarea>
+              <textarea name="body" id="editor" placeholder="请填入至少三个字符的内容">{{ old('body', $topic->body) }}</textarea>
             </div>
 
             <div class="well well-sm">

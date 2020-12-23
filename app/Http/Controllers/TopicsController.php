@@ -50,6 +50,7 @@ class TopicsController extends Controller
     {
         $topic->fill($request->all());
         $topic->user_id = Auth::id();
+        // dd($topic);
         $topic->save();
 
         return redirect()->route('topics.show', $topic)->with('success', '帖子创建成功！');
@@ -63,7 +64,7 @@ class TopicsController extends Controller
      */
     public function show(Topic $topic)
     {
-        //
+        return view('topics.show', compact('topic'));
     }
 
     /**
