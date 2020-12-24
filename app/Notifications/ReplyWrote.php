@@ -60,7 +60,11 @@ class ReplyWrote extends Notification
         return [
             'user_id' => $this->reply->user_id,
             'topic_id' => $this->reply->topic_id,
-            'content' => $this->reply->content,
+            'reply_content' => $this->reply->content,
+            'user_name' => $this->reply->user->name,
+            'user_avatar' => $this->reply->user->avatar,
+            'topic_link' => $this->reply->topic->link(),
+            'topic_title' => $this->reply->topic->title,
         ];
     }
 }
