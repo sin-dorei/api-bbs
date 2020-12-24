@@ -8,7 +8,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use App\Models\Reply;
 
-class ReplyWrote extends Notification
+class ReplyWrote extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -32,7 +32,7 @@ class ReplyWrote extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'mail'];
     }
 
     /**
@@ -41,13 +41,17 @@ class ReplyWrote extends Notification
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    // public function toMail($notifiable)
-    // {
-    //     return (new MailMessage)
-    //                 ->line('The introduction to the notification.')
-    //                 ->action('Notification Action', url('/'))
-    //                 ->line('Thank you for using our application!');
-    // }
+    public function toMail($notifiable)
+    {
+        $url = $this->reply->topic->link(['#reply' . $this->reply->id]);
+
+        return (new MailMessage)
+                    ->subject('提醒：你的帖子有新回复！')
+                    ->greeting('你好啊!')
+                    ->line('你的话题有新回复！')
+                    ->action('查看回复', $url)
+                    ->line('感谢使用产品!');
+    }
 
     /**
      * Get the array representation of the notification.
@@ -63,7 +67,7 @@ class ReplyWrote extends Notification
             'reply_content' => $this->reply->content,
             'user_name' => $this->reply->user->name,
             'user_avatar' => $this->reply->user->avatar,
-            'topic_link' => $this->reply->topic->link(),
+            'topic_link' => $this->reply->topic->link(['#reply' . $this->reply->id]),
             'topic_title' => $this->reply->topic->title,
         ];
     }

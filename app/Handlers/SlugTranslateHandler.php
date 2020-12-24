@@ -39,7 +39,7 @@ class SlugTranslateHandler
 
         // 发送 HTTP Get 请求
         $response = $http->get($api . $query);
-        \Log::info(json_encode($response));
+        // \Log::info(json_encode($response));
         $result = json_decode($response->getBody(), true);
         // 获取结果，如果请求成功，dd($result) 结果如下：
 
