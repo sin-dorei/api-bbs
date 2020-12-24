@@ -4,11 +4,9 @@ namespace App\Policies;
 
 use App\Models\Topic;
 use App\Models\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
 
-class TopicPolicy
+class TopicPolicy extends Policy
 {
-    use HandlesAuthorization;
 
     public function update(User $user, Topic $topic)
     {

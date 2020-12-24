@@ -19,13 +19,13 @@ class UserSeeder extends Seeder
         $user->email = '576051199@qq.com';
         // 初始化用户角色，将 1 号用户指派为『站长』
         $user->assignRole('Founder');
+        $user->save();
 
         $user = User::find(2);
         $user->name = '阿修罗';
         $user->email = '361603760@qq.com';
         // 将 2 号用户指派为『管理员』
         $user->assignRole('Maintainer');
-
         $user->save();
     }
 }
