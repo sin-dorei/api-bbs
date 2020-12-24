@@ -18,7 +18,12 @@ class RepliesController extends Controller
         $reply->content = $request->content;
         $reply->user_id = Auth::id();
         $reply->topic_id = $request->topic_id;
-        $reply->save();
+        $ret = $reply->save();
+
+        // xss 过滤后回复内容为空，则评论创建失败
+        if (!$ret) {
+            return redirect()->to($reply->topic->link())->with('danger', '评论创建失败！');
+        }
 
         return redirect()->to($reply->topic->link())->with('success', '评论创建成功！');
     }
