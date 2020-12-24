@@ -3,9 +3,15 @@
   <ul class="list-group mt-4 border-0">
     @foreach ($replies as $reply)
       <li class="list-group-item pl-2 pr-2 border-right-0 border-left-0 @if($loop->first) border-top-0 @endif">
+        @if ($reply->topic)
         <a href="{{ $reply->topic->link(['#reply' . $reply->id]) }}">
           {{ $reply->topic->title }}
         </a>
+        @else
+        <a href="javascript:;" class="text-danger">
+          该帖子已被删除
+        </a>
+        @endif
 
         <div class="reply-content text-secondary mt-2 mb-2">
           {!! $reply->content !!}
