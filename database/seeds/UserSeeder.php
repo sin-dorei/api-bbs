@@ -15,9 +15,17 @@ class UserSeeder extends Seeder
         factory(User::class)->times(9)->create();
 
         $user = User::find(1);
-        $user->name = 'wag';
-        $user->email = 'wag@qq.com';
-        $user->avatar = 'https://cdn.learnku.com/uploads/images/201710/14/1/ZqM7iaP4CR.png';
+        $user->name = '复苏之风';
+        $user->email = '576051199@qq.com';
+        // 初始化用户角色，将 1 号用户指派为『站长』
+        $user->assignRole('Founder');
+
+        $user = User::find(2);
+        $user->name = '阿修罗';
+        $user->email = '361603760@qq.com';
+        // 将 2 号用户指派为『管理员』
+        $user->assignRole('Maintainer');
+
         $user->save();
     }
 }
