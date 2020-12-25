@@ -7,6 +7,7 @@ use App\Http\Requests\TopicRequest;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\User;
+use App\Models\Link;
 use Auth;
 use Image;
 use Storage;
@@ -18,13 +19,16 @@ class TopicsController extends Controller
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
-    public function index(Request $request, User $user)
+    public function index(Request $request, User $user, Link $link)
     {
         $topics = Topic::feed($request->order)->paginate(20);
 
         $active_users = $user->getActiveUsers();
         // dd($active_users);
-        return view('topics.index', compact('topics', 'active_users'));
+        $links = $link->getAllCached();
+        // dd($links);
+
+        return view('topics.index', compact('topics', 'active_users', 'links'));
     }
 
     /**
