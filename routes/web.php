@@ -3,7 +3,7 @@
 use App\Http\Controllers\TopicsController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'PagesController@root')->name('root')->middleware('verified');
+Route::get('/', 'TopicsController@index')->name('root')->middleware('verified');
 
 Auth::routes(['verify' => true]);
 // // 用户身份验证相关的路由
