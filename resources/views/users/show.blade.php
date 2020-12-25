@@ -13,11 +13,14 @@
         <hr>
         <h5><strong>注册于</strong></h5>
         <p>{{ $user->created_at->diffForHumans() }}</p>
+        <hr>
+        <h5><strong>最后活跃</strong></h5>
+        <p title="{{  $user->last_actived_at }}">{{ $user->last_actived_at->diffForHumans() }}</p>
       </div>
     </div>
   </div>
   <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
-    <div class="card ">
+    <div class="card">
       <div class="card-body">
         <h1 class="mb-0" style="font-size:22px;">{{ $user->name }} <small>{{ $user->email }}</small></h1>
       </div>

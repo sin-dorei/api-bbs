@@ -27,4 +27,9 @@ class TopicObserver
             }
         }
     }
+
+    public function deleted(Topic $topic)
+    {
+        $topic->replies()->delete();
+    }
 }
